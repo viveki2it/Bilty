@@ -1,0 +1,267 @@
+<h3>LR Entries</h3>
+<%= form_for(@lr_entry, :url => (@lr_entry.new_record? ? lr_entries_path : lr_entry_path(@lr_entry)), :method => (@lr_entry.new_record? ? "POST" : "PATCH")) do |f| %>
+  <ul class="list-addProperties">
+    <li>
+      <div class="column">
+        <p>Branch Name</p>
+        <p><% unless current_user.branches.empty? %> <%= f.select :branch_name, options_for_select(current_user.branches.map{|br| [br.name, br.name]}), {}, :onchange => "GetBranch(this.value)" %><% else %><span style="color: red;">Please <%= link_to "Click Here", new_branch_path %> to create branch first.</span><% end %></p>
+      </div>
+      <div class="column" style="width: 21%;">
+        <p>LR No</p> 
+        <p id="lr_no"><%= f.text_field :lr_no, :style => "width: 90%;", :readonly => true %></p> 
+      </div>
+      <div class="column" style="width: 21%;">
+        <p>LR Date</p> 
+        <p><%= f.text_field :lr_date, :style => "width: 90%;", "data-date-format" => "yyyy-mm-dd", :value => "#{Date.today}" %></p> 
+      </div>
+    </li>
+    <li>
+      <div class="column">
+        <p>From Station</p>
+        <p><%= f.autocomplete_field :from_station, autocomplete_indian_city_city_name_invoices_path %></p>
+      </div>
+      <div class="column">
+        <p>To Station</p>
+        <p><%= f.autocomplete_field :to_station, autocomplete_indian_city_city_name_invoices_path %></p>
+      </div>
+    </li>
+    <li>
+      <div class="column">
+        <p>Consignor</p>
+        <p><%= f.text_field :consignor %></p>
+      </div>
+      <div class="column">
+        <p>Consignee</p>
+        <p><%= f.text_field :consignee %></p>
+      </div>
+    </li>
+    <li>
+      <div class="column">
+        <p>Address</p>
+        <p><%= f.text_field :consignor_address %></p>
+      </div>
+      <div class="column">
+        <p>Address</p>
+        <p><%= f.text_field :consignee_address %></p>
+      </div>
+    </li>
+    <li>
+      <div class="column" style="width: 21%;">
+        <p>Value</p> 
+        <p><%= f.text_field :value, :style => "width: 90%;" %></p> 
+      </div>
+      <div class="column" style="width: 21%;">
+        <p>LR Type</p> 
+        <p><%= f.select :lr_type, options_for_select([["Bill", "bil"], ["COD", "cod"],["To pay", "to_pay"], ["CASH", "cash"]], :selected => "cash"), {}, :onchange => "ChangeLrType(this.value)" , :style => "width: 90%;" %></p> 
+      </div>
+      <div class="column" id="bill_party" style="display: none;">
+        <p>Bill Party</p>
+        <p><%= f.text_field :bill_party %></p>
+      </div>
+    </li>
+    <li>
+      <div class="column" style="width: 12%;">
+        <p>Packages</p> 
+        <p><%= f.text_field :packages, :style => "width: 90%;" %></p> 
+      </div>
+      <div class="column" style="width: 12%;">
+        <p>Description </p> 
+        <p><%= f.text_field :description, :style => "width: 90%;" %></p> 
+      </div>
+      <div class="column" style="width: 12%;">
+        <p>Method OfPkg </p> 
+        <p><%= f.text_field :method_of_pkg, :style => "width: 90%;" %></p> 
+      </div>
+      <div class="column" style="width: 12%;">
+        <p>Actual Weight</p> 
+        <p> <%= f.text_field :actual_weight, :style => "width: 90%;" %></p> 
+      </div>
+      <div class="column" style="width: 12%;">
+        <p>Total Pakages</p> 
+        <p> <%= f.text_field :total_pakages, :style => "width: 90%;" %></p> 
+      </div>
+      <div class="column" style="width: 12%;">
+        <p>Total Actual Wt</p> 
+        <p> <%= f.text_field :total_actual_wt, :style => "width: 90%;" %></p> 
+      </div>
+      <div class="column" style="width: 12%;">
+        <p>Total Charge Wt</p> 
+        <p> <%= f.text_field :total_charge_wt, :style => "width: 90%;" %></p> 
+      </div>
+    </li>
+    <li>
+      <div class="column">
+        <table width="100%">
+          <tr>
+            <td style="width:30%">S. Tax By:</td>
+            <td><%= f.select :tax_by, options_for_select([["Consignee", "consignee"], ["Consignor", "consignor"], ["Transporter", "transporter"]]), {}, :style => "width: 75%;" %></td>
+          </tr>
+          <tr>
+            <td style="width:30%">Truck Type:</td>
+            <td><%= f.text_field :truck_type, :style => "width: 75%;" %></td>
+          </tr>
+          <tr>
+            <td style="width:30%">Rate Type:</td>
+            <td><%= f.text_field :rate_type, :style => "width: 75%;" %></td>
+          </tr> 
+          <tr>
+            <td style="width:30%">Priv. Mark:</td>
+            <td><%= f.text_field :priv_mark, :style => "width: 75%;" %></td>
+          </tr>
+          <tr>
+            <td style="width:30%">Delivery Address:</td>
+            <td><%= f.text_field :delivery_address, :style => "width: 75%;" %></td>
+          </tr>
+          <tr>
+            <td style="width:30%">Challan No:</td>
+            <td><%= f.text_field :challan_no, :style => "width: 75%;" %></td>
+          </tr>
+          <tr>
+            <td style="width:30%">Challan Date:</td>
+            <td><%= f.text_field :challan_date, :style => "width: 75%;" %></td>
+          </tr>
+          <tr>
+            <td style="width:30%">Cr.Challan:</td>
+            <td><%= f.text_field :cr_challana, :style => "width: 75%;" %></td>
+          </tr>
+          <tr>
+            <td style="width:30%">Cr.Chal.Date:</td>
+            <td><%= f.text_field :cr_chal_date, :style => "width: 75%;" %></td>
+          </tr>
+        </table>
+      </div>
+      <div class="column" style="width:50%;">
+        <table width="100%">
+          <tr>
+            <td style="width:20%">Rate</td>
+            <td><%= f.text_field :tax, :style => "width: 50%;" %></td>
+            <td style="width:20%">Freight</td>
+            <td><%= f.text_field :freight, :style => "width: 50%;" %></td>
+          </tr>
+        </table>
+        <table width="100%">
+          <tr>
+            <td style="width:20%">Exp Name1</td>
+            <td>
+              <%= f.text_field :exp1_first_name, :style => "width: 30%;" %>
+              <%= f.text_field :exp1_middle_name, :style => "width: 20%;" %>
+              <%= f.text_field :exp1_last_name, :style => "width: 30%;" %>
+            </td>
+          </tr>
+          <tr>
+            <td style="width:20%">Exp Name2</td>
+            <td>
+              <%= f.text_field :exp2_first_name, :style => "width: 30%;" %>
+              <%= f.text_field :exp2_middle_name, :style => "width: 20%;" %>
+              <%= f.text_field :exp2_last_name, :style => "width: 30%;" %>
+            </td>
+          </tr>
+          <tr>
+            <td style="width:20%">Exp Name3</td>
+            <td>
+              <%= f.text_field :exp3_first_name, :style => "width: 30%;" %>
+              <%= f.text_field :exp3_middle_name, :style => "width: 20%;" %>
+              <%= f.text_field :exp3_last_name, :style => "width: 30%;" %>
+            </td>
+          </tr>
+          <tr>
+            <td style="width:20%">Exp Name4</td>
+            <td>
+              <%= f.text_field :exp4_first_name, :style => "width: 30%;" %>
+              <%= f.text_field :exp4_middle_name, :style => "width: 20%;" %>
+              <%= f.text_field :exp4_last_name, :style => "width: 30%;" %>
+            </td>
+          </tr>
+          <tr>
+            <td style="width:20%">Exp Name5</td>
+            <td>
+              <%= f.text_field :exp5_first_name, :style => "width: 30%;" %>
+              <%= f.text_field :exp5_middle_name, :style => "width: 20%;" %>
+              <%= f.text_field :exp5_last_name, :style => "width: 30%;" %>
+            </td>
+          </tr>
+          <tr>
+            <td style="width:20%">Exp Name6</td>
+            <td>
+              <%= f.text_field :exp6_first_name, :style => "width: 30%;" %>
+              <%= f.text_field :exp6_middle_name, :style => "width: 20%;" %>
+              <%= f.text_field :exp6_last_name, :style => "width: 30%;" %>
+            </td>
+          </tr>
+          <tr>
+            <td style="width:20%">Exp Name7</td>
+            <td>
+              <%= f.text_field :exp7_first_name, :style => "width: 30%;" %>
+              <%= f.text_field :exp7_middle_name, :style => "width: 20%;" %>
+              <%= f.text_field :exp7_last_name, :style => "width: 30%;" %>
+            </td>
+          </tr>
+        </table>
+        <div style="width:70%; float: right;">
+          <table width="100%">
+            <tr>
+              <td style="width:40%">Round Off</td>
+              <td> <%= f.text_field :round_off, :style => "width: 80%;" %></td>
+            </tr>
+            <tr>
+              <td>Gross Amt</td>
+              <td> <%= f.text_field :gross_amt, :style => "width: 80%;" %></td>
+            </tr>
+            <tr>
+              <td>Service Tax</td>
+              <td> <%= f.text_field :service_tax, :style => "width: 80%;" %></td>
+            </tr>
+            <tr>
+              <td>Ecess</td>
+              <td> <%= f.text_field :ecess, :style => "width: 80%;" %></td>
+            </tr>
+            <tr>
+              <td>HEcess</td>
+              <td> <%= f.text_field :hecess, :style => "width: 80%;" %></td>
+            </tr>
+            <tr>
+              <td>Round Off</td>
+              <td> <%= f.text_field :round_off2, :style => "width: 80%;" %></td>
+            </tr>
+            <% unless @lr_entry.new_record? %>
+              <tr>
+                <td>Net Amount</td>
+                <td> <%= f.text_field :net_amount, :style => "width: 80%;" %></td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+      </div>
+    </li>
+    <li>
+      <% if @lr_entry.new_record? %>
+        <%= f.submit :save %>
+      <% else %>
+        <%= f.submit :update %>
+        <%= link_to "Print", "javascript:void(0)", :onclick => "PrintPage();", :class => "btn btn-success" %>
+      <% end %>
+    </li>
+  </ul>
+<% end %>
+<style>
+   textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    height: 25px;
+  }
+  select {
+    height: 35px;
+  }
+  td{
+    vertical-align: top;
+  }
+  input, textarea, .uneditable-input {
+    width: 240px;
+  }
+</style>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#lr_entry_lr_date, #lr_entry_cr_chal_date').datepicker({
+    });
+    GetBranch($("#lr_entry_branch_name").val())
+  })
+</script>

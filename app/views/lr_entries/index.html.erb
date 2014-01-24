@@ -1,0 +1,27 @@
+<table class="table table-striped">
+  <tr>
+    <th colspan="6"><%= link_to "Create new", new_lr_entry_path %></th>
+  </tr>
+  <% if @lr_entries.empty? %>
+    <tr>
+      <th colspan="6" id="empty">
+        No LR Entries. For creation of new LR Entry please <%= link_to "Click here", new_lr_entry_path %>
+      </th>
+    </tr>
+  <% else %>
+    <tr>
+      <th>Branch Name</th>
+      <th>To Station</th>
+      <th>From Station</th>
+      <th>Actions</th>
+    </tr>
+    <% @lr_entries.each do |lr_entry| %>
+      <tr>
+        <td><%= lr_entry.branch_name %></td>
+        <td><%= lr_entry.to_station %></td>
+        <td><%= lr_entry.from_station %></td>
+        <td><%= link_to "Modify", edit_lr_entry_path(lr_entry), :class => "btn btn-mini btn-success" %>  <%= link_to "Delete", lr_entry_path(lr_entry), :method => :delete,:data => {:confirm => "Are you sure!"}, :class => "btn btn-mini btn-danger" %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>

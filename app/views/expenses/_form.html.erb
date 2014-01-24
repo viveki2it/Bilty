@@ -1,0 +1,57 @@
+<h3>Expenses</h3>
+<%= form_for(@expense, :url => (@expense.new_record? ? expenses_path : expense_path(@expense)), :method => (@expense.new_record? ? "POST" : "PATCH")) do |f| %>
+  <table width="90%" cellpadding="5px;" cellspacing="10px;">
+    <tr>
+      <td colspan="2">
+        <% if @expense.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= I18n.t("errors.messages.not_saved",
+                :count => pluralize(@expense.errors.count, "error"),
+                :resource => @expense.class.model_name.human.downcase) %> </h2>
+            <ul>
+              <% @expense.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>Name:</td>
+      <td><%= f.text_field :name %></td>
+    </tr>
+    <tr>
+      <td>Towards:</td>
+      <td><%= f.text_field :towards %></td>
+    </tr>
+     <tr>
+      <td>Amount:</td>
+      <td><%= f.text_field :amount %> INR</td>
+    </tr>
+     <tr>
+      <td>Comment:</td>
+      <td><%= f.text_area :comment %></td>
+    </tr>
+     <tr>
+       <td>Date:</td>
+      <td>
+        <div id="dp3" class="input-append date" data-date-format="dd-mm-yyyy">
+          <%= f.text_field :exp_date, :style => "width: 319px;" %>
+          <span class="add-on">
+            <i class="icon-calendar"></i>
+          </span>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2"><%= f.submit "save", :class => "btn btn-large" %></td>
+    </tr>
+  </table>
+<% end %>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.input-append.date').datepicker({
+    });
+  })
+</script>

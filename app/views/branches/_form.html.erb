@@ -1,0 +1,31 @@
+<h3>Branches</h3>
+<%= form_for(@branch, :url => (@branch.new_record? ? branches_path : branch_path(@branch)), :method => (@branch.new_record? ? "POST" : "PATCH")) do |f| %>
+  <table width="90%" cellpadding="5px;" cellspacing="10px;">
+    <tr>
+      <td colspan="2">
+        <% if @branch.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= I18n.t("errors.messages.not_saved",
+                :count => pluralize(@branch.errors.count, "error"),
+                :resource => @branch.class.model_name.human.downcase) %> </h2>
+            <ul>
+              <% @branch.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>Branch Name:</td>
+      <td><%= f.autocomplete_field :name, autocomplete_indian_city_city_name_invoices_path %></td>
+    </tr>
+    <tr>
+      <td>Start - End</td>
+      <td><%= f.text_field :start_point, :style => "width:170px;", :placeholder => "start point" %> <%= f.text_field :end_point, :style => "width:170px;", :placeholder => "end point" %></td>
+    <tr>
+      <td colspan="2"><%= f.submit "save", :class => "btn btn-large" %></td>
+    </tr>
+  </table>
+<% end %>

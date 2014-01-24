@@ -1,0 +1,119 @@
+<h3>Lorry Challan</h3>
+<%= form_for(@lorry_challan, :url => (@lorry_challan.new_record? ? lorry_challans_path : lorry_challan_path(@lorry_challan)), :method => (@lorry_challan.new_record? ? "POST" : "PATCH")) do |f| %>
+  <table width="100%">
+    <tr>
+      <td>Branch</td>
+      <td><%= f.text_field :branch_name %></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Challan No</td>
+      <td><%= f.text_field :challan_no, :style => "width: 100px;" %> Challan Date <%= f.text_field :challan_date, :style => "width: 100px;", "data-date-format" => "yyyy-mm-dd" %></td>
+      <td>Truck No</td>
+      <td><%= f.text_field :truck_no %></td>
+    </tr>
+    <tr>
+      <td>Owner Name</td>
+      <td><%= f.text_field :owner_name %></td>
+      <td>Driver Name</td>
+      <td><%= f.text_field :driver_name %></td>
+    </tr>
+    <tr>
+      <td>License No</td>
+      <td><%= f.text_field :license_no %></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Engaged Thr</td>
+      <td><%= f.text_field :engaged_thr %></td>
+      <td>Truck Type</td>
+      <td><%= f.text_field :truck_type %></td>
+    </tr>
+    <tr>
+      <td>From Station</td>
+      <td><%= f.autocomplete_field :from_station, autocomplete_indian_city_city_name_invoices_path %></td>
+      <td>To Station</td>
+      <td><%= f.autocomplete_field :to_station, autocomplete_indian_city_city_name_invoices_path %></td>
+    </tr>
+  </table>
+  <div style="width: 885px; height: 100px; overflow: auto;"> 
+    <table width='80%' border='1'>
+      <tr>
+        <th>LRNO</th>
+        <th>LR Date</th>
+        <th>Consignor Name</th>
+        <th>Consignee Name</th>
+        <th>Private Mark</th>
+        <th>NO OF Packages</th>
+        <th>Method Of Pack</th>
+        <th>Actual Weight</th>
+      </tr>
+      <% @lr_entries.each do |lr_entry| %>
+        <tr>
+          <td><%= lr_entry.lr_no %></td>
+          <td><%= lr_entry.lr_date %></td>
+          <td><%= lr_entry.consignor %></td>
+          <td><%= lr_entry.consignee %></td>
+          <td><%= lr_entry.priv_mark %></td>
+          <td><%= lr_entry.total_pakages %></td>
+          <td><%= lr_entry.method_of_pkg %></td>
+          <td><%= lr_entry.actual_weight %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <table width='100%'>
+    <tr>
+      <td>Total Paid</td>
+      <td><%= f.text_field :total_paid, :style => "width: 100px;"  %></td>
+       <td>Less Wt Packet</td>
+      <td><%= f.text_field :less_packet, :style => "width: 100px;"  %></td>
+       <td>Total To Pay</td>
+      <td><%= f.text_field :total_to_pay, :style => "width: 100px;"  %></td>
+    </tr>
+     <tr>
+      <td>Total Bill</td>
+      <td><%= f.text_field :total_paid, :style => "width: 100px;"  %></td>
+       <td>Less Wt Per Pkt</td>
+      <td><%= f.text_field :less_per_pkt, :style => "width: 100px;"  %></td>
+       <td>Total Weight</td>
+      <td><%= f.text_field :total_weight, :style => "width: 100px;"  %></td>
+    </tr>
+     <tr>
+      <td></td>
+      <td></td>
+       <td>Total Less Wt</td>
+      <td><%= f.text_field :total_less_wt, :style => "width: 100px;"  %></td>
+       <td>Total Pakages</td>
+      <td><%= f.text_field :total_pakages, :style => "width: 100px;"  %></td>
+    </tr>
+    <tr>
+      <td> <% if @lorry_challan.new_record? %>
+        <%= f.submit :save %>
+      <% else %>
+        <%= f.submit :update %>
+        <%= link_to "Print", "javascript:void(0)", :onclick => "PrintPage();", :class => "btn btn-success" %>
+      <% end %></td>
+    </tr>
+  </table>
+<% end %>
+
+<style>
+  select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    height: 25px;
+  }
+  td{
+    vertical-align: top;
+  }
+  input, textarea, .uneditable-input {
+    width: 300px;
+  }
+</style>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#lorry_challan_challan_date').datepicker({
+    });
+  })
+</script>

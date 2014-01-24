@@ -1,0 +1,86 @@
+<table width='60%' cellpadding='10px;' cellspacing='10px;'>
+  <tr>
+    <td>
+      Bilty No:
+    </td>
+    <td><%= @invoice.bilty_no %></td>
+  </tr>
+  <tr>
+    <td>
+      Bilty Date:
+    </td>
+    <td><%= @invoice.bilty_date %></td>
+  </tr>
+  <tr>
+    <td>
+      To:
+    </td>
+    <td><%= @invoice.to_location %></td>
+  </tr>
+  <tr>
+    <td>
+      From:
+    </td>
+    <td><%= @invoice.from_location %></td>
+  </tr>
+  <tr>
+    <td>
+      No of pieces:
+    </td>
+    <td><%= @invoice.no_of_pieces %></td>
+  </tr> 
+  <tr>
+    <td>
+      Actual weight:
+    </td>
+    <td><%= @invoice.actual_weight %> Kgs</td>
+  </tr> 
+  <tr>
+    <td>
+      Volumetric weight:
+    </td>
+    <td><%= @invoice.volumetric_weight %> Kgs</td>
+  </tr> 
+  <tr>
+    <td>
+      Service tax:
+    </td>
+    <td><%= @invoice.service_tax %> %</td>
+  </tr> 
+  <tr>
+    <td>
+      Fuel surcharge:
+    </td>
+    <td><%= @invoice.fsc %> %</td>
+  </tr> 
+  <tr>
+    <td>
+      Net Payable: 
+    </td>
+    <td><%= @invoice.net_payble %> INR</td>
+  </tr> 
+  <% unless !@custom_fields_and_values.present? %>
+    <% @custom_fields_and_values.each do |custom_fields_and_value| %>
+      <tr>
+        <td><%= custom_fields_and_value.custom_field.label %></td>
+        <td><%= custom_fields_and_value.field_value %></td>
+      </tr>
+    <% end %>
+  <% end %>
+  <tr>
+    <td colspan="2">
+      <%= image_tag(@invoice.barcode_url) %>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <%= link_to "Print", "", :onclick => "PrintPage();", :class => "btn btn-success" %>
+    </td>
+  </tr>
+</table>
+<script>
+  function PrintPage() {
+    window.print();
+    return false;
+  }
+</script>

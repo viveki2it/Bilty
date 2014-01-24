@@ -1,0 +1,31 @@
+<% if !users.blank? %>
+
+  <table width="100%" class="table table-striped">
+    <tr>
+      <th>User name</th>
+      <th>Business Name</th>
+      <th>Role</th>
+      <th>Phone</th>
+      <th>Actions</th>
+    </tr>
+
+    <% users.each do |user| %>
+      <tr id="user_<%= user.id %>">
+        <td><%= user.contact_name %></td>
+        <td><%= user.business_name %></td>
+        <td><%= user.role_type %></td>
+        <td><%= user.phone %></td>
+        <td>
+          <%= link_to "Edit", edit_user_path(user), :remote => true, :class => "btn btn-mini btn-primary" %>
+          <%= link_to "Delete", user, :method => :delete, :data => { :confirm => "are you sure!" }, :remote => true, :class => "btn btn-mini btn-danger" %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan ="5">
+          <%= will_paginate %>
+        </td>
+      </tr>
+    <% end %>
+
+  </table>
+<% end %>

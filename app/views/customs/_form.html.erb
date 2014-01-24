@@ -1,0 +1,31 @@
+<%= form_for(@custom, :url => (@custom.new_record? ? customs_path : custom_path(@custom)), :method => (@custom.new_record? ? "POST" : "PATCH")) do |f| %>
+  <table width="90%" cellpadding="5px;" cellspacing="10px;">
+    <tr>
+      <td colspan="2">
+        <% if @custom.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= I18n.t("errors.messages.not_saved",
+                :count => pluralize(@custom.errors.count, "error"),
+                :resource => @custom.class.model_name.human.downcase) %> </h2>
+            <ul>
+              <% @custom.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>Custom Field Label:</td>
+      <td><%= f.text_field :label %></td>
+    </tr>
+    <tr>
+      <td>Custom Field Datatype:</td>
+      <td><%= f.select :field_type, options_for_select([["Tex Box", "text_field"], ["Texarea", "text_area"]]) %></td>
+    </tr>
+    <tr>
+      <td colspan="2"><%= f.submit "save", :class => "btn" %></td>
+    </tr>
+  </table>
+<% end %>

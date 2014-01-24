@@ -1,0 +1,20 @@
+<%= form_tag(search_by_location_searches_path, :method => "post", :remote => true) do %>
+  <table>
+    <tr>
+      <td colspan="2" class="error">
+      </td>
+    </tr>
+    <tr>
+      <td><%= autocomplete_field_tag  :from_location,'', autocomplete_indian_city_city_name_invoices_path, :placeholder => "From" %></td>
+      <td><%= autocomplete_field_tag :to_location,'', autocomplete_indian_city_city_name_invoices_path, :placeholder => "To" %></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <%= submit_tag  :search, :class => "btn" %>
+      </td>
+    </tr>
+  </table>
+<% end %>
+
+<div id="result">
+</div>

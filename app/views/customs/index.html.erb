@@ -1,0 +1,23 @@
+<table class="table table-striped">
+    <tr>
+      <th colspan="6"><%= link_to "Create new", new_custom_path %></th>
+    </tr>
+  <% if @customs.empty? %>
+    <tr>
+      <th colspan="6" id="empty">
+        No custom fields. For creation of new custom field please <%= link_to "Click here", new_custom_path %>
+      </th>
+    </tr>
+  <% else %>
+    <tr>
+      <th>Label</th>
+      <th>Actions:</th>
+    </tr>
+    <% @customs.each do |custom| %>
+      <tr>
+        <td><%= custom.label %></td>
+        <td><%= link_to "Modify", edit_custom_path(custom), :class => "btn btn-mini btn-success" %>  <%= link_to "Delete", custom_path(custom), :method => :delete,:data => {:confirm => "Are you sure!"}, :class => "btn btn-mini btn-danger" %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>

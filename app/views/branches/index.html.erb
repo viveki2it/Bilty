@@ -1,0 +1,27 @@
+<table class="table table-striped">
+  <tr>
+    <th colspan="6"><%= link_to "Create new", new_branch_path %></th>
+  </tr>
+  <% if @branches.empty? %>
+    <tr>
+      <th colspan="6" id="empty">
+        No branches. For creation of new branch please <%= link_to "Click here", new_branch_path %>
+      </th>
+    </tr>
+  <% else %>
+    <tr>
+      <th>Branch Name</th>
+      <th>Starting Number</th>
+      <th>Ending Number</th>
+      <th>Actions</th>
+    </tr>
+    <% @branches.each do |branch| %>
+      <tr>
+        <td><%= branch.name %></td>
+        <td><%= branch.start_point %></td>
+        <td><%= branch.end_point %></td>
+        <td><%= link_to "Modify", edit_branch_path(branch), :class => "btn btn-mini btn-success" %>  <%= link_to "Delete", branch_path(branch), :method => :delete,:data => {:confirm => "Are you sure!"}, :class => "btn btn-mini btn-danger" %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>

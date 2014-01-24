@@ -1,0 +1,29 @@
+<%= form_tag(search_by_dates_searches_path, :method => "post", :remote => true) do %>
+  <table>
+    <tr>
+      <td colspan="2" class="error">
+      </td>
+    </tr>
+    <tr>
+      <td><%= text_field_tag  :from_date,'', :placeholder => "From", "data-date-format"=>"dd-mm-yyyy" %></td>
+      <td><%= text_field_tag :to_date,'', :placeholder => "To", "data-date-format"=>"dd-mm-yyyy" %></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <%= submit_tag  :search, :class => "btn" %>
+      </td>
+    </tr>
+  </table>
+<% end %>
+
+<div id="result">
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#from_date').datepicker({
+    });
+    $('#to_date').datepicker({
+    });
+  })
+</script>

@@ -1,0 +1,67 @@
+<% if current_user.role_type != "super_admin" %>
+  <%= form_tag(dashboards_index_path, :method => "get") do %>
+    <table>
+      <tr>
+        <td colspan="2" class="error">
+        </td>
+      </tr>
+      <tr>
+        <td><%= text_field_tag  :from_date,'', :placeholder => "From", "data-date-format"=>"dd-mm-yyyy" %></td>
+        <td><%= text_field_tag :to_date,'', :placeholder => "To", "data-date-format"=>"dd-mm-yyyy" %></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <%= submit_tag  :search, :class => "btn" %>
+        </td>
+      </tr>
+    </table>
+  <% end %>
+
+  <div id="chart">
+    <%= render :partial => "dashboards/index" %>
+  </div>
+<% else %>
+  <h4>Admin's</h4>
+  <table class="table table-striped">
+    <tr>
+      <th>Business Name:</th>
+      <th>Email:</th>
+      <th>Location:</th>
+      <th>Phone:</th>
+      <th>Contact Name:</th>
+      <th>No of users:</th>
+    </tr>
+    <% @admins.each do |admin| %>
+      <tr>
+        <td><%= admin.business_name %></td>
+        <td><%= admin.email %></td>
+        <td><%= admin.location %></td>
+        <td><%= admin.phone %></td>
+        <td><%= admin.contact_name %></td>
+        <td><%= User.users(admin.id).count == 0 ? "NOT YET CREATED" : User.users(admin.id).count %></td>
+      </tr>
+    <% end %>
+  </table>
+  <h4>Users</h4>
+  <table class="table table-striped">
+    <tr>
+      <th>Business Name:</th>
+      <th>Email:</th>
+      <th>Location:</th>
+      <th>Phone:</th>
+      <th>Admin Name:</th>
+      <th>Actions:</th>
+    </tr>
+    <% @users.each do |user| %>
+    <% admin = User.find(user.admin_id) %>
+      <tr>
+        <td><%= user.business_name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.location %></td>
+        <td><%= user.phone %></td>
+        <td><%= admin.contact_name %></td>
+        <td><% if user.active %>Active<% else %><%= link_to "make active", update_user_to_active_user_path(user.id), :class => "btn btn-mini btn-success" %><% end %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>

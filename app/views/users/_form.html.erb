@@ -1,0 +1,78 @@
+<%= form_for(@user, :url => @user.new_record? ? create_user_path : user_path(@user), :remote => true) do |f| %>
+  <%= f.hidden_field :role_type, :value => "user" %>
+  <%= f.hidden_field :business_name, :value => current_user.business_name %>
+  <table width="100%;" style="background: #F1F1F1;" cellpadding="10px" cellspacing="10px">
+    <tr style="border-bottom: 1px solid #CCC; text-align: left; background: #CCC;">
+      <th colspan="2">
+        <%= link_to t('.add_new'), users_path %>
+      </th>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <% if @user.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@user.errors.count, "error") %><%= t('users.form.error') %></h2>
+
+            <ul>
+              <% @user.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="controls">
+          <div class="input-prepend">
+            <span class="add-on"><i class="icon-envelope"></i></span>
+            <%= f.email_field :email, :autofocus => true, :placeholder => "Email Address" %>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="controls">
+          <div class="input-prepend">
+            <span class="add-on"><i class="icon-home"></i></span>
+            <%= f.text_field :location, :placeholder => "Location" %>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="controls">
+          <div class="input-prepend">
+            <span class="add-on"><i class="icon-phone"></i></span>
+            <%= f.text_field :phone, :placeholder => "Phone Number" %>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="controls">
+          <div class="input-prepend">
+            <span class="add-on"><i class="icon-user"></i></span>
+            <%= f.text_field :contact_name, :placeholder => "Contact Name" %>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <%= check_box_tag "[user][access_types][]", "bilty_generator", @user.new_record? ? params[:user] ? params[:user][:access_types] ? params[:user][:access_types].include?("bilty_generator") : false : false : @user.access_types.include?("bilty_generator") %> Bilty Generator
+        <%= check_box_tag "[user][access_types][]", "expense_management",@user.new_record? ? params[:user] ? params[:user][:access_types] ? params[:user][:access_types].include?("expense_management") : false : false : @user.access_types.include?("expense_management") %> Expense Management 
+        <%= check_box_tag "[user][access_types][]","report_generator", @user.new_record? ? params[:user] ? params[:user][:access_types] ? params[:user][:access_types].include?("report_generator") : false : false : @user.access_types.include?("report_generator") %> Report Generator
+      </td>
+    </tr>
+    <tr>
+      <td><%= f.submit "Save", :class => "btn btn-success", :style => "padding: 5px 20px;" %></td>
+    </tr>
+  </table>
+<% end %>
+
+<style>
+  td, th {
+    text-align: left;
+  }
+</style>

@@ -1,0 +1,20 @@
+<%= form_tag(search_by_bilty_no_searches_path, :method => "post", :remote => true) do %>
+  <table>
+    <tr>
+      <td colspan="2" class="error">
+      </td>
+    </tr>
+    <tr>
+      <td><%= text_field_tag :bilty_no,'', :placeholder => "Enter bilty no" %></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <%= submit_tag  :search, :class => "btn" %>
+      </td>
+    </tr>
+  </table>
+<% end %>
+
+
+<div id="result">
+</div>

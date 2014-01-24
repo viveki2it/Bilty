@@ -1,0 +1,35 @@
+<table class="table table-striped">
+  <% unless params[:controller] == "searches" %>
+    <tr>
+      <th colspan="7"><%= link_to "Create new", new_invoice_path %></th>
+    </tr>
+  <% end %>
+  <% if invoices.empty? %>
+    <tr>
+      <th colspan="7" id="empty">
+        No invoices. For creation of new invoice please <%= link_to "Click here", new_invoice_path %>
+      </th>
+    </tr>
+  <% else %>
+    <tr>
+      <th>Bilty No:</th>
+      <th>Bilty Date:</th>
+      <th>To:</th>
+      <th>From:</th>
+      <th>Net payable:</th>
+      <th>Barcode:</th>
+      <th>Actions:</th>
+    </tr>
+    <% invoices.each do |invoice| %>
+      <tr>
+        <td><%= invoice.bilty_no %></td>
+        <td><%= invoice.bilty_date %></td>
+        <td><%= invoice.to_location %></td>
+        <td><%= invoice.from_location %></td>
+        <td>INR <%= invoice.net_payble %></td>
+        <td><%= image_tag(invoice.barcode_url) %></td>
+        <td><%= link_to "Modify", edit_invoice_path(invoice), :class => "btn btn-mini btn-success" %>  <%= link_to "Delete", invoice_path(invoice), :method => :delete,:data => {:confirm => "Are you sure!"}, :class => "btn btn-mini btn-danger" %> <%= link_to "Show to print", invoice_path(invoice), :class => "btn btn-mini btn-success" %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>

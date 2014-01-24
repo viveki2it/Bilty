@@ -1,0 +1,91 @@
+<%= form_for(@invoice) do |f| %>
+  <table width="70%" cellpadding="5px;" cellspacing="10px;">
+    <tr>
+      <td colspan="2">
+        <% if @invoice.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= I18n.t("errors.messages.not_saved",
+                :count => pluralize(@invoice.errors.count, "error"),
+                :resource => @invoice.class.model_name.human.downcase) %> </h2>
+            <ul>
+              <% @invoice.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>Bilty Date:</td>
+      <td>
+        <div id="dp3" class="input-append date" data-date-format="dd-mm-yyyy">
+          <%= f.text_field :bilty_date, :style => "width: 319px;" %>
+          <span class="add-on">
+            <i class="icon-calendar"></i>
+          </span>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>To:</td>
+      <td><%= f.autocomplete_field :to_location, autocomplete_indian_city_city_name_invoices_path %></td>
+    </tr>
+    <tr>
+      <td>From:</td>
+      <td><%= f.autocomplete_field :from_location, autocomplete_indian_city_city_name_invoices_path %></td>
+    </tr>
+    <tr>
+      <td>No of pieces:</td>
+      <td><%= f.text_field :no_of_pieces, :style => "width: 150px;" %></td>
+    </tr>
+    <tr>
+      <td>Actual weight:</td>
+      <td><%= f.text_field :actual_weight, :style => "width: 150px;" %> Kgs <%= f.text_field :gross_price, :style => "width: 150px;" %> INR</td>
+    </tr>
+    <tr>
+      <td>Volumetric weight:</td>
+      <td><%= f.text_field :volumetric_weight, :style => "width: 150px;" %> Kgs</td>
+    </tr>
+    <tr>
+      <td>Service tax:</td>
+      <td><%= f.text_field :service_tax, :style => "width: 150px;"  %> %</td>
+    </tr>
+    <tr>
+      <td>Fuel surcharge:</td>
+      <td><%= f.text_field :fsc, :style => "width: 150px;"  %> %</td>
+    </tr>
+    <tr>
+      <td>Insurance:</td>
+      <td><%= f.radio_button :insurance, "yes", :onclick => "Showprice()"  %> YES <%= f.radio_button :insurance, "no", :onclick => "Showprice()"  %> No </td>
+    </tr>
+    <tr id="ins_price" style="display: none;">
+      <td>Insurance price:</td>
+      <td><%= f.text_field :ins_price, :style => "width: 150px;" %> INR</td>
+    </tr>
+    <% unless @custom_fields.nil? %>
+      <% @custom_fields.each do |custom_field| %>
+        <tr>
+          <td><%= custom_field.label %></td>
+          <td>
+            <% field = CustomFieldValue.find_by_custom_field_id(custom_field.id) %>
+            <% if custom_field.field_type == 'text_field' %>
+              <%= text_field_tag "#{custom_field.id}", params["custom_field.id"], :value => @invoice.new_record? ? params["#{custom_field.id}"] : field.present? ? field.field_value : "" %>
+            <% else %>
+              <%= text_area_tag custom_field.id %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+    <tr>
+      <td colspan="2"><%= f.submit "save", :class => "btn btn-large" %></td>
+    </tr>
+  </table>
+<% end %>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.input-append.date').datepicker({
+    });
+  })
+</script>

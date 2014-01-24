@@ -1,0 +1,27 @@
+<table class="table table-striped">
+  <tr>
+    <th colspan="6"><%= link_to "Create new", new_lorry_challan_path %></th>
+  </tr>
+  <% if @lorry_challans.empty? %>
+    <tr>
+      <th colspan="6" id="empty">
+        No Lorry Challans. For creation of new Lorry Challan please <%= link_to "Click here", new_lorry_challan_path %>
+      </th>
+    </tr>
+  <% else %>
+    <tr>
+      <th>Branch Name</th>
+      <th>To Station</th>
+      <th>From Station</th>
+      <th>Actions</th>
+    </tr>
+    <% @lorry_challans.each do |lorry_challan| %>
+      <tr>
+        <td><%= lorry_challan.branch_name %></td>
+        <td><%= lorry_challan.to_station %></td>
+        <td><%= lorry_challan.from_station %></td>
+        <td><%= link_to "Modify", edit_lorry_challan_path(lorry_challan), :class => "btn btn-mini btn-success" %>  <%= link_to "Delete", lorry_challan_path(lorry_challan), :method => :delete,:data => {:confirm => "Are you sure!"}, :class => "btn btn-mini btn-danger" %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
