@@ -36,8 +36,8 @@
      <tr>
        <td>Date:</td>
       <td>
-        <div id="dp3" class="input-append date" data-date-format="dd-mm-yyyy">
-          <%= f.text_field :exp_date, :style => "width: 319px;" %>
+        <div id="dp3" class="input-append date" data-date-format="yyyy-mm-dd">
+          <%= f.text_field :exp_date, :style => "width: 319px;", "data-date-format" => "yyyy-mm-dd", :value => "#{Date.today}"   %>
           <span class="add-on">
             <i class="icon-calendar"></i>
           </span>

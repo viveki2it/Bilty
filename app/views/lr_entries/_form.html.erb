@@ -4,7 +4,7 @@
     <li>
       <div class="column">
         <p>Branch Name</p>
-        <p><% unless current_user.branches.empty? %> <%= f.select :branch_name, options_for_select(current_user.branches.map{|br| [br.name, br.name]}), {}, :onchange => "GetBranch(this.value, '#{@lr_entry.new_record? ? 'new' : 'edit'}')" %><% else %><span style="color: red;">Please <%= link_to "Click Here", new_branch_path %> to create branch first.</span><% end %></p>
+        <p><% unless current_user.branches.empty? %> <%= f.select :branch_name, options_for_select(current_user.branches.map{|br| [br.name, br.name]}, :selected => @lr_entry.branch_name), {}, :onchange => "GetBranch(this.value, '#{@lr_entry.new_record? ? 'new' : 'edit'}')" %><% else %><span style="color: red;">Please <%= link_to "Click Here", new_branch_path %> to create branch first.</span><% end %></p>
       </div>
       <div class="column" style="width: 21%;">
         <p>LR No</p> 
@@ -47,7 +47,7 @@
     </li>
     <li>
       <div class="column" style="width: 21%;">
-        <p>Value</p> 
+        <p>Freight Amount</p> 
         <p><%= f.text_field :value, :style => "width: 90%;" %></p> 
       </div>
       <div class="column" style="width: 21%;">
