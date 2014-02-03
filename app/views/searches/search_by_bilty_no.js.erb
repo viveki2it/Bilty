@@ -1,6 +1,6 @@
 <% if @status %>
   $(".error").html(" ")
-  $("#result").html("<%= escape_javascript(render :partial => "/invoices/invoices", :locals => {:invoices => @invoices}) %>")
+  $("#result").html("<%= escape_javascript(render :partial => "/lr_entries/lr_entries", :locals => {:lr_entries => @lr_entries}) %>")
 <% else %>
   $(".error").html("<%= @error %>")
 <% end %>

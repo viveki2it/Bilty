@@ -9,7 +9,7 @@
     </tr>
     <tr>
       <td>Challan No</td>
-      <td><%= f.text_field :challan_no, :style => "width: 100px;" %> Challan Date <%= f.text_field :challan_date, :style => "width: 100px;", "data-date-format" => "yyyy-mm-dd" %></td>
+      <td><%= f.text_field :challan_no, :style => "width: 100px;" %> Challan Date <%= f.text_field :challan_date, :style => "width: 100px;", "data-date-format" => "yyyy-mm-dd", :value => "#{Date.today}" %></td>
       <td>Truck No</td>
       <td><%= f.text_field :truck_no %></td>
     </tr>
@@ -68,34 +68,34 @@
     <tr>
       <td>Total Paid</td>
       <td><%= f.text_field :total_paid, :style => "width: 100px;"  %></td>
-       <td>Less Wt Packet</td>
+      <td>Less Wt Packet</td>
       <td><%= f.text_field :less_packet, :style => "width: 100px;"  %></td>
-       <td>Total To Pay</td>
+      <td>Total To Pay</td>
       <td><%= f.text_field :total_to_pay, :style => "width: 100px;"  %></td>
     </tr>
-     <tr>
+    <tr>
       <td>Total Bill</td>
       <td><%= f.text_field :total_paid, :style => "width: 100px;"  %></td>
-       <td>Less Wt Per Pkt</td>
+      <td>Less Wt Per Pkt</td>
       <td><%= f.text_field :less_per_pkt, :style => "width: 100px;"  %></td>
-       <td>Total Weight</td>
+      <td>Total Weight</td>
       <td><%= f.text_field :total_weight, :style => "width: 100px;"  %></td>
     </tr>
-     <tr>
+    <tr>
       <td></td>
       <td></td>
-       <td>Total Less Wt</td>
+      <td>Total Less Wt</td>
       <td><%= f.text_field :total_less_wt, :style => "width: 100px;"  %></td>
-       <td>Total Pakages</td>
+      <td>Total Pakages</td>
       <td><%= f.text_field :total_pakages, :style => "width: 100px;"  %></td>
     </tr>
     <tr>
       <td> <% if @lorry_challan.new_record? %>
-        <%= f.submit :save %>
-      <% else %>
-        <%= f.submit :update %>
-        <%= link_to "Print", "javascript:void(0)", :onclick => "PrintPage();", :class => "btn btn-success" %>
-      <% end %></td>
+          <%= f.submit :save %>
+        <% else %>
+          <%= f.submit :update %>
+          <%= link_to "Print", "javascript:void(0)", :onclick => "PrintPage();", :class => "btn btn-success" %>
+        <% end %></td>
     </tr>
   </table>
 <% end %>
@@ -112,8 +112,10 @@
   }
 </style>
 <script type="text/javascript">
-  $(document).ready(function() {
-    $('#lorry_challan_challan_date').datepicker({
-    });
-  })
+<% unless  @lorry_challan.new_record? %>
+    $(document).ready(function() {
+      $('#lorry_challan_challan_date').datepicker({
+      });
+    })
+<% end %>
 </script>

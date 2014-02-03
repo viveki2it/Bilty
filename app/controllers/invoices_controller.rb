@@ -86,14 +86,19 @@ class InvoicesController < ApplicationController
     if request.post? 
       if params[:cities]
         IndianCity.delete_all
+        i = 0
         CSV.parse(params[:cities][:cities].read) do |row|
-          next if row[0].to_i == 0
-        
           # row = row[0].to_s.split("\t").collect(&:strip)
-          IndianCity.create({
-              :city_name => row[1],
-              :city_state => row[2]
-            })
+          if i != 0
+            IndianCity.create({
+                :city_name => row[1],
+                :city_state => row[0],
+                :latitude => row[2],
+                :longitude => row[3],
+                :pin_code => row[4]
+              }) 
+          end
+          i += 1
         end
       
         flash[:notice] = "Uploading completed."

@@ -4,7 +4,7 @@
     <li>
       <div class="column">
         <p>Branch Name</p>
-        <p><% unless current_user.branches.empty? %> <%= f.select :branch_name, options_for_select(current_user.branches.map{|br| [br.name, br.name]}), {}, :onchange => "GetBranch(this.value)" %><% else %><span style="color: red;">Please <%= link_to "Click Here", new_branch_path %> to create branch first.</span><% end %></p>
+        <p><% unless current_user.branches.empty? %> <%= f.select :branch_name, options_for_select(current_user.branches.map{|br| [br.name, br.name]}), {}, :onchange => "GetBranch(this.value, '#{@lr_entry.new_record? ? 'new' : 'edit'}')" %><% else %><span style="color: red;">Please <%= link_to "Click Here", new_branch_path %> to create branch first.</span><% end %></p>
       </div>
       <div class="column" style="width: 21%;">
         <p>LR No</p> 
@@ -75,10 +75,6 @@
       <div class="column" style="width: 12%;">
         <p>Actual Weight</p> 
         <p> <%= f.text_field :actual_weight, :style => "width: 90%;" %></p> 
-      </div>
-      <div class="column" style="width: 12%;">
-        <p>Total Pakages</p> 
-        <p> <%= f.text_field :total_pakages, :style => "width: 90%;" %></p> 
       </div>
       <div class="column" style="width: 12%;">
         <p>Total Actual Wt</p> 
@@ -200,10 +196,6 @@
         <div style="width:70%; float: right;">
           <table width="100%">
             <tr>
-              <td style="width:40%">Round Off</td>
-              <td> <%= f.text_field :round_off, :style => "width: 80%;" %></td>
-            </tr>
-            <tr>
               <td>Gross Amt</td>
               <td> <%= f.text_field :gross_amt, :style => "width: 80%;" %></td>
             </tr>
@@ -244,7 +236,7 @@
   </ul>
 <% end %>
 <style>
-   textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+  textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
     height: 25px;
   }
   select {
@@ -260,8 +252,10 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-    $('#lr_entry_lr_date, #lr_entry_cr_chal_date').datepicker({
-    });
-    GetBranch($("#lr_entry_branch_name").val())
+<% unless @lr_entry.new_record? %>
+      $('#lr_entry_lr_date, #lr_entry_cr_chal_date').datepicker({
+      });
+<% end %>
+    GetBranch($("#lr_entry_branch_name").val(), '<%= @lr_entry.new_record? ? 'new' : 'edit' %>')
   })
 </script>

@@ -11,6 +11,8 @@
   <% else %>
     <tr>
       <th>Branch Name</th>
+      <th>City</th>
+      <th>State</th>
       <th>Starting Number</th>
       <th>Ending Number</th>
       <th>Actions</th>
@@ -18,6 +20,8 @@
     <% @branches.each do |branch| %>
       <tr>
         <td><%= branch.name %></td>
+         <td><%= branch.city %></td>
+          <td><%= branch.state %></td>
         <td><%= branch.start_point %></td>
         <td><%= branch.end_point %></td>
         <td><%= link_to "Modify", edit_branch_path(branch), :class => "btn btn-mini btn-success" %>  <%= link_to "Delete", branch_path(branch), :method => :delete,:data => {:confirm => "Are you sure!"}, :class => "btn btn-mini btn-danger" %></td>

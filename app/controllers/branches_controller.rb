@@ -48,6 +48,11 @@ class BranchesController < ApplicationController
     end
   end
   
+  #Get /branches/:id/get_cities
+  def get_cities
+    @indian_cities = IndianCity.where("city_state = ?", params[:id])
+  end
+  
   private
   def params_branch
     params.require(:branch).permit!

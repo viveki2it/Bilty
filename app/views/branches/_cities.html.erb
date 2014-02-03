@@ -1,0 +1,3 @@
+<p> <label> City: </label>
+  <%= select_tag "branch[city]", options_for_select([["Select", ""]] + indian_cities.map{|ic| [ic.city_name]}.uniq) %>
+</p>

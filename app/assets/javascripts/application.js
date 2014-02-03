@@ -33,23 +33,37 @@ function Showprice() {
 function PrintPage() {
     window.print();
     return false;
-  }
-  
-  function ChangeLrType(val) {
+}
+
+function ChangeLrType(val) {
     if (val === "bil") {
-      $("#bill_party").show();
+        $("#bill_party").show();
     } else {
-      $("#bill_party").hide();
+        $("#bill_party").hide();
     }
-  }
-  
-  function GetBranch(val) {
+}
+
+function GetBranch(val, ty) {
     $.ajax({
-      url: "/lr_entries/" + val + "/change_branch_name/",
-      method: "GET",
-      dataType: "script",
-      success: function(data){
-        
-      }
+        url: "/lr_entries/" + val + "/change_branch_name/",
+        data: {
+            ac: ty
+        },
+        method: "GET",
+        dataType: "script",
+        success: function(data) {
+
+        }
     })
-  }
+}
+
+function GetCities(state) {
+    $.ajax({
+        url: "/branches/" + state + "/get_cities/",
+        method: "GET",
+        dataType: "script",
+        success: function(date) {
+
+        }
+    })
+}

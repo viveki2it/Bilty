@@ -14,7 +14,7 @@ class LrEntriesController < ApplicationController
   def create
     @lr_entry = LrEntry.new(lr_entry_params)  
     @lr_entry.user_id = current_user.id
-    @lr_entry.net_amount = ((@lr_entry.gross_amt.to_f * @lr_entry.service_tax.to_f)/100).to_f
+    @lr_entry.net_amount = ((@lr_entry.gross_amt.to_f * @lr_entry.service_tax.to_f)/100) + @lr_entry.gross_amt.to_f
     if @lr_entry.save
       params[:notice] = "LrEntry has been created successfully."
       redirect_to edit_lr_entry_path(@lr_entry)
@@ -37,7 +37,8 @@ class LrEntriesController < ApplicationController
   end
   
   def update
-    @lr_entry.net_amount = ((@lr_entry.gross_amt.to_f * @lr_entry.service_tax.to_f)/100).to_f
+    net_amount = ((@lr_entry.gross_amt.to_f * @lr_entry.service_tax.to_f)/100) + @lr_entry.gross_amt.to_f
+    @lr_entry.update_attribute(:net_amount, net_amount)
     if @lr_entry.update_attributes(lr_entry_params)
       params[:notice] = "Invoice has been updated successfully."
       redirect_to edit_lr_entry_path(@lr_entry)
@@ -57,7 +58,11 @@ class LrEntriesController < ApplicationController
       if @lr_no == @branch.end_point
         @lr_no = @lr_entry.lr_no 
       else
-        @lr_no = @lr_entry.lr_no + 1
+        if params[:ac] == "new"
+          @lr_no = @lr_entry.lr_no + 1
+        else
+          @lr_no = @lr_entry.lr_no
+        end
       end
     else
       @lr_no = @branch.start_point

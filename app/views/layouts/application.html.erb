@@ -50,8 +50,11 @@
                   </li>
                   <li>
                     <% unless !(current_user.role_type == "admin" || current_user.access_types.include?("bilty_generator"))  %>
-                      <%= link_to "Invoices", invoices_path %>
+                      <%= link_to "LR Entry", lr_entries_path %>
                     <% end %>
+                  </li>
+                  <li>
+                    <%= link_to "Lorry Challan", lorry_challans_path %>
                   </li>
                   <li>
                     <%= link_to "Search", searches_path %>
@@ -60,12 +63,6 @@
                     <% unless !(current_user.role_type == "admin" || current_user.access_types.include?("expense_management"))  %>
                       <%= link_to "Expenses", expenses_path %>
                     <% end %>
-                  </li>
-                  <li>
-                    <%= link_to "LR Entry", lr_entries_path %>
-                  </li>
-                   <li>
-                    <%= link_to "Lorry Challan", lorry_challans_path %>
                   </li>
                   <% unless current_user.role_type != "admin" %>
                     <li>

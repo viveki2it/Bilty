@@ -23,7 +23,11 @@ Bilty::Application.routes.draw do
   end
   resources :customs
   resources :expenses
-  resources :branches
+  resources :branches do
+    member do
+     get :get_cities
+    end
+  end
   resources :lr_entries do 
     get :change_branch_name
   end
