@@ -46,7 +46,7 @@
               <% if current_user.role_type != "super_admin" %>
                 <ul class="nav pull-left">
                   <li>
-                    <%= link_to current_user.contact_name, "/" %>
+                    <%= link_to image_tag("/assets/RLS40X100 Px.png"), "/", :style => "padding: 0;" %>
                   </li>
                   <li>
                     <% unless !(current_user.role_type == "admin" || current_user.access_types.include?("bilty_generator"))  %>
@@ -94,7 +94,7 @@
               <% else %>
                 <ul class="nav pull-left">
                   <li>
-                    <%= link_to current_user.contact_name, "/" %>
+                    <%= link_to image_tag("/assets/RLS40X100 Px.png"), "/", :style => "padding: 0;" %>
                   </li>
                 </ul>
                 <ul class="nav pull-right">
@@ -106,6 +106,12 @@
                   </li>
                 </ul>
               <% end %>
+            <% else %>
+              <ul class="nav pull-left">
+                <li>
+                  <%= link_to image_tag("/assets/RLS40X100 Px.png"), "/", :style => "padding: 0;" %>
+                </li>
+              </ul>
             <% end %>
           </div><!--/.nav-collapse -->
         </div>
