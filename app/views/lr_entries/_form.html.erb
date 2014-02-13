@@ -227,9 +227,9 @@
     </li>
     <li>
       <% if @lr_entry.new_record? %>
-        <%= f.submit :save %>
+        <%= f.submit :save, :class => "btn btn-large" %>
       <% else %>
-        <%= f.submit :update %>
+        <%= f.submit :update, :class => "btn btn-large" %>
         <%= link_to "Print", "javascript:void(0)", :onclick => "PrintPage();", :class => "btn btn-success" %>
       <% end %>
     </li>

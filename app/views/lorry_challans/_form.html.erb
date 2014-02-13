@@ -38,8 +38,9 @@
       <td><%= f.autocomplete_field :to_station, autocomplete_indian_city_city_name_invoices_path %></td>
     </tr>
   </table>
-  <div style="width: 885px; height: 100px; overflow: auto;"> 
-    <table width='80%' border='1'>
+  <hr>
+  <div style="width: 885px; height: 94px; overflow: auto;"> 
+    <table width='100%' border='1' cellpadding="5px;" cellspacing="5px;">
       <tr>
         <th>LRNO</th>
         <th>LR Date</th>
@@ -64,6 +65,7 @@
       <% end %>
     </table>
   </div>
+  <hr>
   <table width='100%'>
     <tr>
       <td>Total Paid</td>
@@ -90,10 +92,10 @@
       <td><%= f.text_field :total_pakages, :style => "width: 100px;"  %></td>
     </tr>
     <tr>
-      <td> <% if @lorry_challan.new_record? %>
-          <%= f.submit :save %>
+      <td colspan="6"> <% if @lorry_challan.new_record? %>
+          <%= f.submit :save, :class => "btn btn-large" %>
         <% else %>
-          <%= f.submit :update %>
+          <%= f.submit :update, :class => "btn btn-large" %>
           <%= link_to "Print", "javascript:void(0)", :onclick => "PrintPage();", :class => "btn btn-success" %>
         <% end %></td>
     </tr>

@@ -53,9 +53,11 @@
                       <%= link_to "LR Entry", lr_entries_path %>
                     <% end %>
                   </li>
-                  <li>
-                    <%= link_to "Lorry Challan", lorry_challans_path %>
-                  </li>
+                  <% unless current_user.role_type != "admin" %>
+                    <li>
+                      <%= link_to "Lorry Challan", lorry_challans_path %>
+                    </li>
+                  <% end %>
                   <li>
                     <%= link_to "Search", searches_path %>
                   </li>

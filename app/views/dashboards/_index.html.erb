@@ -1,7 +1,76 @@
+<%= link_to "View Table Format", "javascript:void(0);", :class=>"btn btn-success", :onclick => "LrViewTable();", :id => "lr_data_view", :style => "float: right;" %><br/><br/>
 <div id="lr_entries_chart">
-
 </div>
-
+<div id="lr_data" style="display: none;">
+  <%= link_to "View Graph Format", "javascript:void(0);", :class=>"btn btn-success", :onclick => "LrViewGraph();", :style => "float: right;" %><br/><br/>
+  <table width="100%" border="1" cellpadding="5px" cellspacing="5px">
+    <tr>
+      <th>SI No</th>
+      <th>Bilty No</th>
+      <th>Bilty Date</th>
+      <th>No. of pckgs</th>
+      <th>Total Weight</th>
+      <th>From Address</th>
+      <th>Consignee Address</th>
+      <th>Customer Name</th>
+      <th>Total Amount</th>
+      <th>Invoice Date</th>
+      <th>Payment Status</th>
+    </tr>
+    <% @lr_entries.each_with_index do |lr_entry, index| %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><%= lr_entry.lr_no %></td>
+        <td><%= lr_entry.lr_date %></td>
+        <td><%= lr_entry.packages %></td>
+        <td><%= lr_entry.total_actual_wt %></td>
+        <td><%= lr_entry.from_station %></td>
+        <td><%= lr_entry.consignee_address %></td>
+        <td><%= lr_entry.consignee %></td>
+        <td><%= lr_entry.net_amount   %></td>
+        <td></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+<br/><br/>
+<%= link_to "View Table Format", "javascript:void(0);", :class=>"btn btn-success", :onclick => "LorryViewTable();", :id => "lorry_data_view", :style => "float: right;" %><br/><br/>
+<div id='lorry_challan_chart'>
+</div>
+<div id="lorry_data" style="display: none;">
+  <%= link_to "View Graph Format", "javascript:void(0);", :class=>"btn btn-success", :onclick => "LorryViewGraph();", :style => "float: right;" %><br/><br/>
+  <table width="100%" border="1" cellpadding="5px" cellspacing="5px">
+    <tr>
+      <th>SI No</th>
+      <th>Challan No</th>
+      <th>Challan Date</th>
+      <th>Truck No</th>
+      <th>Owner Name</th>
+      <th>Driver Name</th>
+      <th>From Address</th>
+      <th>Total Weight</th>
+      <th>Total Amount</th>
+      <th>Invoice Date</th>
+      <th>Payment Status</th>
+    </tr>
+    <% @lorry_callans.each_with_index do |lr_entry, index| %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><%= lr_entry.challan_no %></td>
+        <td><%= lr_entry.challan_date %></td>
+        <td><%= lr_entry.truck_no %></td>
+        <td><%= lr_entry.owner_name %></td>
+        <td><%= lr_entry.driver_name %></td>
+        <td><%= lr_entry.from_station %></td>
+        <td><%= lr_entry.total_weight %></td>
+        <td><%= lr_entry.total_to_pay   %></td>
+        <td></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
 <script type="text/javascript" charset="utf-8">
   $(function() {
     new Highcharts.Chart({
@@ -22,7 +91,27 @@
           data: <%= @data %>
         }]
     });
-  });</script>
+
+    new Highcharts.Chart({
+      chart: {renderTo: 'lorry_challan_chart'},
+      title: {text: 'Lorry Challans'},
+      xAxis: {type: 'datetime'},
+      yAxis: {
+        title: {text: 'number of Lorry Challans'}
+      },
+      tooltip: {
+        formatter: function() {
+          return Highcharts.dateFormat("%B %e, %Y", this.x) + ':' + Highcharts.numberFormat(this.y, 2)
+        }
+      },
+      series: [{
+          pointInterval: <%= @pointInterval %>,
+          pointStart: <%= @pointStart %>,
+          data: <%= @lorry_challan_data %>
+        }]
+    });
+  });
+</script>
 
 <script type="text/javascript">
   $(document).ready(function() {
@@ -31,4 +120,24 @@
     $('#to_date').datepicker({
     });
   })
+  function LrViewTable() {
+    $("#lr_entries_chart").hide();
+    $("#lr_data_view").hide();
+    $("#lr_data").show();
+  }
+  function LorryViewTable() {
+    $("#lorry_challan_chart").hide();
+    $("#lorry_data_view").hide();
+    $("#lorry_data").show();
+  }
+  function LrViewGraph() {
+    $("#lr_entries_chart").show();
+    $("#lr_data_view").show();
+    $("#lr_data").hide();
+  }
+  function LorryViewGraph() {
+    $("#lorry_challan_chart").show();
+    $("#lorry_data_view").show();
+    $("#lorry_data").hide();
+  }
 </script>
