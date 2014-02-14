@@ -25,11 +25,15 @@ Bilty::Application.routes.draw do
   resources :expenses
   resources :branches do
     member do
-     get :get_cities
+      get :get_cities
     end
   end
   resources :lr_entries do 
     get :change_branch_name
+    member do
+      match :update_delivery_details, :via => [:get, :put]
+      match :upload_pod, :via => [:get, :post]
+    end
   end
   resources :lorry_challans
   resources :searches do

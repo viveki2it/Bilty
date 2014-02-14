@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140203101341) do
+ActiveRecord::Schema.define(version: 20140214102755) do
 
   create_table "branches", force: true do |t|
     t.string   "name"
@@ -170,6 +170,13 @@ ActiveRecord::Schema.define(version: 20140203101341) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "invoice_date"
+    t.string   "payment_status",    default: "Pending"
+    t.string   "user_name"
+    t.string   "pod_file_name"
+    t.string   "pod_content_type"
+    t.integer  "pod_file_size"
+    t.datetime "pod_updated_at"
   end
 
   create_table "users", force: true do |t|
@@ -197,6 +204,9 @@ ActiveRecord::Schema.define(version: 20140203101341) do
     t.integer  "admin_id"
     t.string   "access_types"
     t.boolean  "active",                 default: false
+    t.string   "pod_file_name"
+    t.string   "pod_content_type"
+    t.integer  "pod_file_size"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

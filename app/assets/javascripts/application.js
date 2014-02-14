@@ -67,3 +67,8 @@ function GetCities(state) {
         }
     })
 }
+
+$(document).ready(function() {
+    $('#lr_entry_invoice_date').datepicker({
+    });
+});

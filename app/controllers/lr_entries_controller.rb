@@ -69,6 +69,28 @@ class LrEntriesController < ApplicationController
     end
   end
   
+  def update_delivery_details
+    if request.put?
+      @lr_entry.update_attributes({
+          :user_name => params[:lr_entry][:user_name],
+          :invoice_date => params[:lr_entry][:invoice_date],
+          :payment_status => "Delivered"
+        })
+      params[:notice] = "Updated Delivery Details"
+      redirect_to root_path
+    else
+    end
+  end
+  
+  def upload_pod
+    if request.post?
+      @lr_entry.update_attributes(lr_entry_params)
+      params[:notice] = "Uploaded POD"
+      redirect_to root_path
+    else
+    end
+  end
+  
   def lr_entry_params
     params.require(:lr_entry).permit!
   end

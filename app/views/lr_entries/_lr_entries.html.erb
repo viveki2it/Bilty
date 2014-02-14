@@ -12,6 +12,7 @@
     </tr>
   <% else %>
     <tr>
+      <th>Lr No</th>
       <th>Branch Name</th>
       <th>To Station</th>
       <th>From Station</th>
@@ -20,11 +21,12 @@
     </tr>
     <% lr_entries.each do |lr_entry| %>
       <tr>
+        <td><%= lr_entry.lr_no %></td>
         <td><%= lr_entry.branch_name %></td>
         <td><%= lr_entry.to_station %></td>
         <td><%= lr_entry.from_station %></td>
         <td><%= image_tag(lr_entry.barcode_url) %></td>
-        <td><%= link_to "Modify", edit_lr_entry_path(lr_entry), :class => "btn btn-mini btn-success" %>  <%= link_to "Delete", lr_entry_path(lr_entry), :method => :delete,:data => {:confirm => "Are you sure!"}, :class => "btn btn-mini btn-danger" %></td>
+        <td style="line-height: 25px;"><%= link_to "Update Delivery Details", update_delivery_details_lr_entry_path(lr_entry), :class => "btn btn-mini btn-success"  %> <br/> <%= link_to "Modify", edit_lr_entry_path(lr_entry), :class => "btn btn-mini btn-success" %> <%= link_to "Delete", lr_entry_path(lr_entry), :method => :delete,:data => {:confirm => "Are you sure!"}, :class => "btn btn-mini btn-danger" %> <%= link_to "Upload POD", upload_pod_lr_entry_path(lr_entry), :class => "btn btn-mini btn-success" %></td>
       </tr>
     <% end %>
   <% end %>

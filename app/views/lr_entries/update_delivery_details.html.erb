@@ -1,0 +1,18 @@
+<h1>Update Delivery Details</h1>
+<%= form_tag(update_delivery_details_lr_entry_path(params[:id]), :method => :put) do %>
+  <table width="100%" cellpadding="10px;" cellspacing="10px;">
+    <tr>
+      <td>User Name</td>
+      <td><%= text_field_tag "lr_entry[user_name]", "" %></td>
+    </tr>
+    <tr>
+      <td>Delivery Date</td>
+      <td><%= text_field_tag "lr_entry[invoice_date]", "", "data-date-format" => "yyyy-mm-dd", :value => "#{Date.today}" %></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <%= submit_tag  :Update, :class => "btn" %>
+      </td>
+    </tr>
+  </table>
+<% end %>

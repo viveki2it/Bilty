@@ -27,9 +27,9 @@
         <td><%= lr_entry.from_station %></td>
         <td><%= lr_entry.consignee_address %></td>
         <td><%= lr_entry.consignee %></td>
-        <td><%= lr_entry.net_amount   %></td>
-        <td></td>
-        <td></td>
+        <td><%= lr_entry.net_amount %></td>
+        <td><%= lr_entry.invoice_date %></td>
+        <td><%= lr_entry.payment_status %></td>
       </tr>
     <% end %>
   </table>
@@ -51,22 +51,18 @@
       <th>From Address</th>
       <th>Total Weight</th>
       <th>Total Amount</th>
-      <th>Invoice Date</th>
-      <th>Payment Status</th>
     </tr>
-    <% @lorry_callans.each_with_index do |lr_entry, index| %>
+    <% @lorry_callans.each_with_index do |lorry_callan, index| %>
       <tr>
         <td><%= index + 1 %></td>
-        <td><%= lr_entry.challan_no %></td>
-        <td><%= lr_entry.challan_date %></td>
-        <td><%= lr_entry.truck_no %></td>
-        <td><%= lr_entry.owner_name %></td>
-        <td><%= lr_entry.driver_name %></td>
-        <td><%= lr_entry.from_station %></td>
-        <td><%= lr_entry.total_weight %></td>
-        <td><%= lr_entry.total_to_pay   %></td>
-        <td></td>
-        <td></td>
+        <td><%= lorry_callan.challan_no %></td>
+        <td><%= lorry_callan.challan_date %></td>
+        <td><%= lorry_callan.truck_no %></td>
+        <td><%= lorry_callan.owner_name %></td>
+        <td><%= lorry_callan.driver_name %></td>
+        <td><%= lorry_callan.from_station %></td>
+        <td><%= lorry_callan.total_weight %></td>
+        <td><%= lorry_callan.total_to_pay   %></td>
       </tr>
     <% end %>
   </table>

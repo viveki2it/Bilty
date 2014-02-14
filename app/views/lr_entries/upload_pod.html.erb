@@ -1,0 +1,14 @@
+<h1>Upload POD</h1>
+<%= form_tag(upload_pod_lr_entry_path(params[:id]), :method => :post, :multipart => true ) do %>
+  <table width="100%" cellpadding="10px;" cellspacing="10px;">
+    <tr>
+      <td>Upload POD</td>
+      <td><%= file_field_tag "lr_entry[pod]" %></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <%= submit_tag  :Upload, :class => "btn" %>
+      </td>
+    </tr>
+  </table>
+<% end %>
